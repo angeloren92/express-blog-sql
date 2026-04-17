@@ -1,0 +1,14 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#f4a261"/>
+  <circle cx="200" cy="150" r="120" fill="#daa520"/>
+  <circle cx="200" cy="150" r="100" fill="#ff6347"/>
+  <circle cx="150" cy="120" r="15" fill="#fff"/>
+  <circle cx="200" cy="100" r="15" fill="#fff"/>
+  <circle cx="250" cy="130" r="15" fill="#fff"/>
+  <circle cx="180" cy="160" r="15" fill="#fff"/>
+  <circle cx="220" cy="180" r="15" fill="#fff"/>
+  <circle cx="160" cy="200" r="10" fill="#228b22"/>
+  <circle cx="240" cy="190" r="10" fill="#228b22"/>
+  <text x="200" y="260" text-anchor="middle" fill="#8b4513" font-size="18" font-family="Arial">Pizza Margherita</text>
+  <text x="200" y="280" text-anchor="middle" fill="#8b4513" font-size="12" font-family="Arial">Classica Napoletana</text>
+</svg>

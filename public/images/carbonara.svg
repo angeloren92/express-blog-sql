@@ -1,0 +1,13 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#fff8dc"/>
+  <rect x="50" y="100" width="300" height="20" fill="#f4a460"/>
+  <rect x="50" y="130" width="300" height="20" fill="#f4a460"/>
+  <rect x="50" y="160" width="300" height="20" fill="#f4a460"/>
+  <circle cx="100" cy="120" r="8" fill="#8b4513"/>
+  <circle cx="150" cy="150" r="8" fill="#8b4513"/>
+  <circle cx="200" cy="130" r="8" fill="#8b4513"/>
+  <circle cx="250" cy="160" r="8" fill="#8b4513"/>
+  <circle cx="300" cy="140" r="8" fill="#8b4513"/>
+  <text x="200" y="220" text-anchor="middle" fill="#8b4513" font-size="18" font-family="Arial">Pasta alla Carbonara</text>
+  <text x="200" y="240" text-anchor="middle" fill="#8b4513" font-size="12" font-family="Arial">Piatto Romano</text>
+</svg>
