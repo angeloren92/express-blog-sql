@@ -1,17 +1,16 @@
 const { posts } = require('../data/dataPosts')
 const connection = require('../data/db');
 
-function index(req, res) {
-    const query = 'SELECT * FROM tags';
+const index = (req, res) => {
+    const query = 'SELECT * FROM posts';
     connection.query(query, (err, results) => {
         if (err) {
             console.error(`Errore durante l'esecuzione della query:`, err);
             return res.status(500).json({ error: 'Errore del server' });
         }
+        res.json(results);
     });
 }
-
-
 
 // Rotta bacheca show
 const show = (req, res) => {
