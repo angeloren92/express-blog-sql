@@ -16,7 +16,7 @@ const index = (req, res) => {
 // Rotta bacheca show
 const show = (req, res) => {
     const id = parseInt(req.params.id);
-    const query = 'SELECT * FROM posts WHERE id = ?';
+    const query = 'SELECT posts.*, tags.label FROM posts JOIN post_tag ON posts.id = post_tag.post_id JOIN tags ON post_tag.tag_id = tags.id WHERE posts.id = ?';
     connection.query(query, [id], (err, results) => {
         if (err) {
             console.error(`Errore durante l'esecuzione della query:`, err);
