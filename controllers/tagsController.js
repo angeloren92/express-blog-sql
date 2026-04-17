@@ -15,13 +15,28 @@ const index = (req, res) => {
 
 // Rotta bacheca show
 const show = (req, res) => {
-    const post = posts.find(element => element.id === parseInt(req.params.id));
-    if (post) {
-        res.json(post);
-    } else {
-        res.status(404).json({ message: 'not found' })
-    }
-};
+    const id = parseInt(req.params.id);
+    const query = 'SELECT * FROM posts WHERE id = ?';
+    connection.query(query, [id], (err, results) => {
+        if (err) {
+            console.error(`Errore durante l'esecuzione della query:`, err);
+            return res.status(500).json({ error: 'Errore del server' });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ message: 'Post non trovato' });
+        }
+        res.json(results[0]);
+    });
+}
+
+// const show = (req, res) => {
+//     const post = posts.find(element => element.id === parseInt(req.params.id));
+//     if (post) {
+//         res.json(post);
+//     } else {
+//         res.status(404).json({ message: 'not found' })
+//     }
+// };
 
 // Rotta bacheca store  
 const store = (req, res) => {
@@ -83,15 +98,5 @@ const destroy = (req, res) => {
         res.status(204).send();
     });
 }
-// const destroy = (req, res) => {
-//     const index = posts.findIndex(element => element.id === parseInt(req.params.id))
-//     if (index !== -1) {
-//         posts.splice(index, 1)
-//         console.log(posts)
-//         res.status(204).send()
-//     } else {
-//         res.status(404).json({ message: 'not found' })
-//     }
-// };
 
 module.exports = { index, show, store, modify, update, destroy };
