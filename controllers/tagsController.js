@@ -44,25 +44,21 @@ const store = (req, res) => {
 };
 
 // Rotta bacheca update
+
 const update = (req, res) => {
-    const { titolo, contenuto, immagine, tags } = req.body;
+    const { title, content, image } = req.body;
     const id = parseInt(req.params.id);
-    const post = posts.find(element => element.id === id);
-
-    if (!post) {
-        return res.status(404).json({
-            error: 'Not Found',
-            message: 'Post non trovato'
-        });
-    }
-
-    post.titolo = titolo;
-    post.contenuto = contenuto;
-    post.immagine = immagine;
-    post.tags = tags;
-
-    console.log(posts);
-    res.json(post);
+    const sql = 'UPDATE posts SET title = ?, content = ?, image = ? WHERE id = ?';
+    connection.query(sql, [title, content, image, id], (err, results) => {
+        if (err) {
+            console.error(`Errore durante l'esecuzione della query:`, err);
+            return res.status(err.errno === 1062 ? 409 : 500).json(err.errno === 1062 ? { error: 'Titolo già esistente' } : { error: 'Errore del server' });
+        }   
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ message: 'Post non trovato' });
+        }
+        res.json({ id, title, content, image });
+    });
 }
 
 // Rotta bacheca modify
