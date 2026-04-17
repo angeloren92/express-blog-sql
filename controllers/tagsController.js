@@ -37,7 +37,7 @@ const store = (req, res) => {
     connection.query(sql, [title, content, image], (err, results) => {
         if (err) {
             console.error(`Errore durante l'esecuzione della query:`, err);
-            return res.status(500).json(err.sqlMessage);
+            return res.status(err.errno === 1062 ? 409 : 500).json(err.errno === 1062 ? { error: 'Titolo già esistente' } : { error: 'Errore del server' });
         }       
             res.status(201).json({ title, content, image });
     });
