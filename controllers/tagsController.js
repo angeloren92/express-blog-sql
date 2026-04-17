@@ -1,16 +1,17 @@
 const { posts } = require('../data/dataPosts')
+const connection = require('../data/db');
 
-// Rotta bacheca index
-const index = (req, res) => {
-    if (req.query.tag) {
-        const filteredPosts = posts.filter(element => element.tags.includes(req.query.tag))
-        if (filteredPosts.length !== 0) {
-            res.json(filteredPosts);
+function index(req, res) {
+    const query = 'SELECT * FROM tags';
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error(`Errore durante l'esecuzione della query:`, err);
+            return res.status(500).json({ error: 'Errore del server' });
         }
-    } else {
-        res.json(posts)
-    }
-};
+    });
+}
+
+
 
 // Rotta bacheca show
 const show = (req, res) => {
