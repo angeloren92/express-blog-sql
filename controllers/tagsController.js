@@ -29,30 +29,18 @@ const show = (req, res) => {
     });
 }
 
-// const show = (req, res) => {
-//     const post = posts.find(element => element.id === parseInt(req.params.id));
-//     if (post) {
-//         res.json(post);
-//     } else {
-//         res.status(404).json({ message: 'not found' })
-//     }
-// };
-
 // Rotta bacheca store  
-const store = (req, res) => {
-    const { titolo, contenuto, immagine, tags } = req.body;
-    const newId = posts.length > 0 ? posts[posts.length - 1].id + 1 : 1;
-    const newPost = {
-        id: newId,
-        titolo,
-        contenuto,
-        immagine,
-        tags
-    };
 
-    posts.push(newPost);
-    console.log(posts);
-    res.status(201).json(newPost);
+const store = (req, res) => {
+    const { title, content, image } = req.body;
+    const sql = 'INSERT INTO posts (title, content, image) VALUES (?, ?, ?)';
+    connection.query(sql, [title, content, image], (err, results) => {
+        if (err) {
+            console.error(`Errore durante l'esecuzione della query:`, err);
+            return res.status(500).json(err.sqlMessage);
+        }       
+            res.status(201).json({ title, content, image });
+    });
 };
 
 // Rotta bacheca update

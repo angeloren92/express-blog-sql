@@ -1,18 +1,18 @@
 const { posts } = require('../data/dataPosts');
 
 function isDuplicate(req, res, next) {
-    const { titolo } = req.body;
+    const { title } = req.body;
     const id = parseInt(req.params.id);
 
-    if (!titolo || typeof titolo !== 'string') {
+    if (!title || typeof title !== 'string') {
         return res.status(400).json({ message: 'titolo obbligatorio' });
     }
 
-    if (titolo.length < 3) {
+    if (title.length < 3) {
         return res.status(400).json({ message: 'titolo deve contenere almeno 3 caratteri' });
     }
 
-    const duplicate = posts.some(post => post.titolo === titolo && post.id !== id);
+    const duplicate = posts.some(post => post.title === title && post.id !== id);
     if (duplicate) {
         return res.status(400).json({ message: 'titolo già presente' });
     }
