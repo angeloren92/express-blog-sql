@@ -1,6 +1,7 @@
 const { posts } = require('../data/dataPosts')
 const connection = require('../data/db');
 
+// Rotta bacheca index
 const index = (req, res) => {
     const query = 'SELECT * FROM posts';
     connection.query(query, (err, results) => {
@@ -66,16 +67,31 @@ const modify = (req, res) => {
     res.send('modifica parziale ' + req.params.id);
 };
 
+
 // Rotta bacheca destroy
 const destroy = (req, res) => {
-    const index = posts.findIndex(element => element.id === parseInt(req.params.id))
-    if (index !== -1) {
-        posts.splice(index, 1)
-        console.log(posts)
-        res.status(204).send()
-    } else {
-        res.status(404).json({ message: 'not found' })
-    }
-};
+    const id = parseInt(req.params.id);
+    const sql = 'DELETE FROM posts WHERE id = ?';
+    connection.query(sql, [id], (err, results) => {
+        if (err) {
+            console.error(`Errore durante l'esecuzione della query:`, err);
+            return res.status(500).json({ error: 'Errore del server' });
+        }
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ message: 'Post non trovato' });
+        }
+        res.status(204).send();
+    });
+}
+// const destroy = (req, res) => {
+//     const index = posts.findIndex(element => element.id === parseInt(req.params.id))
+//     if (index !== -1) {
+//         posts.splice(index, 1)
+//         console.log(posts)
+//         res.status(204).send()
+//     } else {
+//         res.status(404).json({ message: 'not found' })
+//     }
+// };
 
 module.exports = { index, show, store, modify, update, destroy };
